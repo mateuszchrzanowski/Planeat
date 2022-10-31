@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Planeat.Core.Domain
 {
-    public class ProductsRepository
+    public class ProductsList
     {
         public IEnumerable<Product> Products { get; protected set; }
 
-        protected ProductsRepository()
+        protected ProductsList()
         {
         }
 
-        public ProductsRepository(IEnumerable<Product> products)
+        public ProductsList(IEnumerable<Product> products)
         {
             Products = products;
         }

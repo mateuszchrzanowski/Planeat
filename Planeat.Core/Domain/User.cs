@@ -23,7 +23,7 @@ namespace Planeat.Core.Domain
         public User(string email, string username, string password, string salt)
         {
             Id = Guid.NewGuid();
-            Email = email;
+            Email = email.ToLowerInvariant();
             Username = username;
             Password = password;
             Salt = salt;
