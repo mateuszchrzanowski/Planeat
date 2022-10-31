@@ -11,5 +11,16 @@ namespace Planeat.Core.Domain
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public decimal Price { get; protected set; }
+
+        protected Product()
+        {
+        }
+
+        public Product(string name, decimal price)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Price = price;
+        }
     }
 }
