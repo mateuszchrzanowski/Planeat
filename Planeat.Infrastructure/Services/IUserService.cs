@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Planeat.Infrastructure.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Planeat.Infrastructure.Services
 {
     public interface IUserService
     {
-        void Register(string email, string password);
+        UserDto Get(string email);
+        void Register(string email, string username, string password);
     }
 }
