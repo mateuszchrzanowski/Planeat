@@ -10,7 +10,12 @@ namespace Planeat.Infrastructure.Repositories
 {
     public class InMemoryUserRepository : IUserRepository
     {
-        private static ISet<User> _users = new HashSet<User>();
+        private static ISet<User> _users = new HashSet<User>
+        {
+            new User("user1@user.com", "user1", "secret1", "salt1"),
+            new User("user2@user.com", "user2", "secret2", "salt2"),
+            new User("user3@user.com", "user3", "secret3", "salt3")
+    };
 
         public void Add(User user)
         {
