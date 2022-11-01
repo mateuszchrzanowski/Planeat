@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Planeat.Core.Domain
+{
+    public class ProductsList
+    {
+        public IEnumerable<Product> Products { get; protected set; }
+
+        protected ProductsList()
+        {
+        }
+
+        public ProductsList(IEnumerable<Product> products)
+        {
+            Products = products;
+        }
+    }
+}
