@@ -1,4 +1,5 @@
-﻿using Planeat.Core.Domain;
+﻿using AutoMapper;
+using Planeat.Core.Domain;
 using Planeat.Core.Repositories;
 using Planeat.Infrastructure.DTO;
 using System;
@@ -11,11 +12,13 @@ namespace Planeat.Infrastructure.Services
 {
     public class UserService : IUserService
     {
+        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public UserDto Get(string email)
@@ -27,13 +30,7 @@ namespace Planeat.Infrastructure.Services
                 throw new Exception($"User with email: {email} doesn't exist.");
             }
 
-            return new UserDto
-            {
-                Id = user.Id,
-                Email = user.Email,
-                Username = user.Username,
-                FullName = user.FullName
-            };
+            return _mapper.Map<User, UserDto>(user);
         }
 
         public void Register(string email, string username, string password)
