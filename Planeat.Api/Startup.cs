@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Planeat.Core.Repositories;
+using Planeat.Infrastructure.Mappers;
 using Planeat.Infrastructure.Repositories;
 using Planeat.Infrastructure.Services;
 
@@ -31,6 +32,7 @@ namespace Planeat.Api
         {
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
