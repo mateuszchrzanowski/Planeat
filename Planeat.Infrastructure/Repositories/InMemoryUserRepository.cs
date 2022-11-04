@@ -24,13 +24,13 @@ namespace Planeat.Infrastructure.Repositories
 
         public User Get(Guid id)
         {
-            User user = _users.Single(x => x.Id == id);
+            User user = _users.SingleOrDefault(x => x.Id == id);
             return user;
         }
 
         public User Get(string email)
         {
-            User user = _users.Single(x => x.Email == email.ToLowerInvariant());
+            User user = _users.SingleOrDefault(x => x.Email == email.ToLowerInvariant());
             return user;
         }
 
