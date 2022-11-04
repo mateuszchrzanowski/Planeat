@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Planeat.Infrastructure.Commands.Users;
 using Planeat.Infrastructure.DTO;
 using Planeat.Infrastructure.Services;
 using System;
@@ -24,6 +25,12 @@ namespace Planeat.Api.Controllers
         public UserDto Get(string email)
         {
             return _userService.Get(email);
+        }
+
+        [HttpPost]
+        public void Post(CreateUser request)
+        {
+            _userService.Register(request.Email, request.Username, request.Password);
         }
     }
 }
