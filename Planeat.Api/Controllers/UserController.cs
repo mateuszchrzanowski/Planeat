@@ -22,15 +22,15 @@ namespace Planeat.Api.Controllers
         }
 
         [HttpGet("{email}")]
-        public UserDto Get(string email)
+        public async Task<UserDto> Get(string email)
         {
-            return _userService.Get(email);
+            return await _userService.GetAsync(email);
         }
 
         [HttpPost]
-        public void Post(CreateUser request)
+        public async Task Post(CreateUser request)
         {
-            _userService.Register(request.Email, request.Username, request.Password);
+            await _userService.RegisterAsync(request.Email, request.Username, request.Password);
         }
     }
 }

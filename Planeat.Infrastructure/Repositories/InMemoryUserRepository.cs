@@ -17,32 +17,34 @@ namespace Planeat.Infrastructure.Repositories
             new User("user3@user.com", "user3", "secret3", "salt3")
     };
 
-        public void Add(User user)
+        public async Task AddAsync(User user)
         {
             _users.Add(user);
+            await Task.CompletedTask;
         }
 
-        public User Get(Guid id)
+        public async Task<User> GetAsync(Guid id)
         {
-            User user = _users.SingleOrDefault(x => x.Id == id);
+            User user = await Task.FromResult(_users.SingleOrDefault(x => x.Id == id));
             return user;
         }
 
-        public User Get(string email)
+        public async Task<User> GetAsync(string email)
         {
-            User user = _users.SingleOrDefault(x => x.Email == email.ToLowerInvariant());
+            User user = await Task.FromResult(_users.SingleOrDefault(x => x.Email == email.ToLowerInvariant()));
             return user;
         }
 
-        public void Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
-            User user = Get(id);
+            User user = await GetAsync(id);
             _users.Remove(user);
+            await Task.CompletedTask;
         }
 
-        public void Update(User user)
+        public async Task UpdateAsync(User user)
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }

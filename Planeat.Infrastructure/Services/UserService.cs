@@ -21,9 +21,9 @@ namespace Planeat.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public UserDto Get(string email)
+        public async Task<UserDto> GetAsync(string email)
         {
-            User user = _userRepository.Get(email);
+            User user = await _userRepository.GetAsync(email);
 
             if (user == null)
             {
@@ -33,9 +33,9 @@ namespace Planeat.Infrastructure.Services
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public void Register(string email, string username, string password)
+        public async Task RegisterAsync(string email, string username, string password)
         {
-            User user = _userRepository.Get(email);
+            User user = await _userRepository.GetAsync(email);
 
             if (user != null)
             {
@@ -44,7 +44,7 @@ namespace Planeat.Infrastructure.Services
 
             var salt = Guid.NewGuid().ToString("N");
             user = new User(email, username, password, salt);
-            _userRepository.Add(user);
+            await _userRepository.AddAsync(user);
         }
     }
 }
