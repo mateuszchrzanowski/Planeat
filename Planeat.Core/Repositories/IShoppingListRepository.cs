@@ -9,10 +9,10 @@ namespace Planeat.Core.Repositories
 {
     public interface IShoppingListRepository
     {
-        ShoppingList Get(Guid id);
-        ShoppingList Get(string name);
-        void Add(ShoppingList shoppingList);
-        void Update(ShoppingList shoppingList);
-        void Remove(Guid id);
+        Task<ShoppingList> GetAsync(Guid id);
+        Task<ShoppingList> GetAsync(string name);
+        Task AddAsync(ShoppingList shoppingList);
+        Task UpdateAsync(ShoppingList shoppingList);
+        Task RemoveAsync(Guid id);
     }
 }

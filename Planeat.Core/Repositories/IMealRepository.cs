@@ -9,10 +9,10 @@ namespace Planeat.Core.Repositories
 {
     public interface IMealRepository
     {
-        Meal Get(Guid id);
-        Meal Get(string name);
-        void Add(Meal meal);
-        void Update(Meal meal);
-        void Remove(Guid id);
+        Task<Meal> GetAsync(Guid id);
+        Task<Meal> GetAsync(string name);
+        Task AddAsync(Meal meal);
+        Task UpdateAsync(Meal meal);
+        Task RemoveAsync(Guid id);
     }
 }
