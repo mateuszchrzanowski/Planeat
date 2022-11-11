@@ -15,7 +15,7 @@ namespace Planeat.Infrastructure.Repositories
             new User("user1@user.com", "user1", "secret1", "salt1"),
             new User("user2@user.com", "user2", "secret2", "salt2"),
             new User("user3@user.com", "user3", "secret3", "salt3")
-    };
+        };
 
         public async Task AddAsync(User user)
         {

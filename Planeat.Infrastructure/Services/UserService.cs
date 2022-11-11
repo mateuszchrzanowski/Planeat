@@ -25,11 +25,6 @@ namespace Planeat.Infrastructure.Services
         {
             User user = await _userRepository.GetAsync(email);
 
-            if (user == null)
-            {
-                throw new Exception($"User with email: {email} doesn't exist.");
-            }
-
             return _mapper.Map<User, UserDto>(user);
         }
 
