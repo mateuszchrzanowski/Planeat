@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Planeat.Infrastructure.Commands.Users;
+using Planeat.Infrastructure.Commands;
+using Planeat.Infrastructure.Commands.User;
 using Planeat.Infrastructure.DTO;
 using Planeat.Infrastructure.Services;
 using System;
@@ -10,13 +11,11 @@ using System.Threading.Tasks;
 
 namespace Planeat.Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : ApiControllerBase
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
         }
@@ -34,11 +33,11 @@ namespace Planeat.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateUser request)
+        public async Task<IActionResult> Post(CreateUser command)
         {
-            await _userService.RegisterAsync(request.Email, request.Username, request.Password);
+            await CommandDispatcher.DispatchAsync(command);
             
-            return Created($"user/{request.Email}", null);
+            return Created($"user/{command.Email}", null);
         }
     }
 }
