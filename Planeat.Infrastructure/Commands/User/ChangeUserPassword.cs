@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Planeat.Infrastructure.Commands.User
 {
-    public class CreateUser : ICommand
+    public class ChangeUserPassword : ICommand
     {
-        public string Email { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string CurrentPassword { get; set; }
+        public string NewPassword { get; set; }
     }
 }

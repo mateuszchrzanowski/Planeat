@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Planeat.Infrastructure.Commands
 {
-    public interface ICommand
-    {        
+    public interface ICommandDispatcher
+    {
+        Task DispatchAsync<T>(T command) where T : ICommand;
     }
 }
