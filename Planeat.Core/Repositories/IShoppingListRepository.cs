@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Planeat.Core.Repositories
 {
-    public interface IShoppingListRepository
+    public interface IShoppingListRepository : IRepository
     {
         Task<ShoppingList> GetAsync(Guid id);
         Task<ShoppingList> GetAsync(string name);

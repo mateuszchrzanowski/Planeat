@@ -3,6 +3,7 @@ using Planeat.Infrastructure.Commands;
 using Planeat.Infrastructure.Commands.User;
 using Planeat.Infrastructure.DTO;
 using Planeat.Infrastructure.Services;
+using Planeat.Infrastructure.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

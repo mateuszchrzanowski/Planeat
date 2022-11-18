@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Planeat.Core.Repositories
 {
-    public interface IMealRepository
+    public interface IMealRepository : IRepository
     {
         Task<Meal> GetAsync(Guid id);
         Task<Meal> GetAsync(string name);
