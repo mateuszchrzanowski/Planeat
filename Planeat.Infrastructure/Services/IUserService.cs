@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Planeat.Infrastructure.Services
 {
-    public interface IUserService
+    public interface IUserService : IService
     {
         Task<UserDto> GetAsync(string email);
         Task RegisterAsync(string email, string username, string password);
