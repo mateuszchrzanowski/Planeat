@@ -16,6 +16,7 @@ namespace Planeat.Infrastructure.Mappers
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDto>();
+                cfg.CreateMap<Product, ProductDto>();
             }).CreateMapper();
 
             return config;

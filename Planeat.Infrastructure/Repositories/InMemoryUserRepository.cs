@@ -23,6 +23,12 @@ namespace Planeat.Infrastructure.Repositories
             await Task.CompletedTask;
         }
 
+        public async Task<IEnumerable<User>> GetAllAsync()
+        {
+            IEnumerable<User> users = await Task.FromResult(_users);
+            return users;
+        }
+
         public async Task<User> GetAsync(Guid id)
         {
             User user = await Task.FromResult(_users.SingleOrDefault(x => x.Id == id));
