@@ -9,6 +9,7 @@ namespace Planeat.Core.Repositories
 {
     public interface IUserRepository : IRepository
     {
+        Task<IEnumerable<User>> GetAllAsync();
         Task<User> GetAsync(Guid id);
         Task<User> GetAsync(string email);
         Task AddAsync(User user);
