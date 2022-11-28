@@ -10,28 +10,49 @@ namespace Planeat.Core.Domain
     {
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
-        public IEnumerable<Ingredient> Ingredients { get; protected set; }
+        public IEnumerable<Ingredient> Ingredients { get; set; }
         public decimal TotalPrice { get; protected set; }
+        public Guid CreatedBy { get; protected set; }
 
         protected Meal()
         {
         }
 
-        public Meal(string name, IEnumerable<Ingredient> ingredients)
+        public Meal(string name, IEnumerable<Ingredient> ingredients, Guid createdBy)
         {
             Id = Guid.NewGuid();
             Name = name;
-            Ingredients = ingredients;
+            SetIngredients(ingredients);
             TotalPrice = CalculateTotalPrice();
+            CreatedBy = createdBy;
+        }
+
+        public void SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new Exception($"Meal name can not be empty.");
+            }
+
+            Name = name;
+        }
+
+        public void SetIngredients(IEnumerable<Ingredient> ingredients)
+        {
+            Ingredients = ingredients;
+            CalculateTotalPrice();
         }
 
         private decimal CalculateTotalPrice()
         {
             decimal totalPrice = 0;
 
-            foreach (Ingredient ingredient in Ingredients)
+            if (Ingredients != null)
             {
-                totalPrice += ingredient.GetSummaryPrice();
+                foreach (Ingredient ingredient in Ingredients)
+                {
+                    totalPrice += ingredient.GetSummaryPrice();
+                } 
             }
 
             return totalPrice;

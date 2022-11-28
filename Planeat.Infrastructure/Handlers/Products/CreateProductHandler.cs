@@ -1,5 +1,5 @@
 ﻿using Planeat.Infrastructure.Commands;
-using Planeat.Infrastructure.Commands.Product;
+using Planeat.Infrastructure.Commands.Products;
 using Planeat.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planeat.Infrastructure.Handlers.Product
+namespace Planeat.Infrastructure.Handlers.Products
 {
     public class CreateProductHandler : ICommandHandler<CreateProduct>
     {

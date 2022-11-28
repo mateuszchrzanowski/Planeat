@@ -21,6 +21,12 @@ namespace Planeat.Infrastructure.Services
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        {
+            IEnumerable<User> users = await _userRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
+        }
+
         public async Task<UserDto> GetAsync(string email)
         {
             User user = await _userRepository.GetAsync(email);

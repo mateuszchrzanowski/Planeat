@@ -17,6 +17,10 @@ namespace Planeat.Infrastructure.Mappers
             {
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<Product, ProductDto>();
+                cfg.CreateMap<MealList, MealListDto>();
+                cfg.CreateMap<Meal, MealDto>();
+                cfg.CreateMap<Ingredient, IngredientDto>();
+                cfg.CreateMap<IngredientDto, Ingredient>();
             }).CreateMapper();
 
             return config;

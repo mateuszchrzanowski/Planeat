@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Planeat.Infrastructure.Commands;
-using Planeat.Infrastructure.Commands.User;
+using Planeat.Infrastructure.Commands.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +22,6 @@ namespace Planeat.Api.Controllers
             await CommandDispatcher.DispatchAsync(command);
 
             return NoContent();
-            //return Created($"user/{command.Email}", null);
         }
     }
 }
