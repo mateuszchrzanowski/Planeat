@@ -12,12 +12,12 @@ namespace Planeat.Infrastructure.Repositories
     {
         private static ISet<Product> _products = new HashSet<Product>
         {
-            new Product("Milk", 3.50M, new Guid("010B4A82-1B7C-11CF-9D53-00AA003C9CB6")),
-            new Product("Flour", 2.75M, new Guid("020B4A82-1B7C-11CF-9D53-00AA003C9CB6")),
-            new Product("Pasta", 5.47M, new Guid("020B4A82-1B7C-11CF-9D53-00AA003C9CB6")),
-            new Product("Sugar", 4.99M, new Guid("030B4A82-1B7C-11CF-9D53-00AA003C9CB6")),
-            new Product("Tea", 13.20M, new Guid("040B4A82-1B7C-11CF-9D53-00AA003C9CB6")),
-            new Product("Coffee", 23.30M, new Guid("050B4A82-1B7C-11CF-9D53-00AA003C9CB6")),
+            new Product("Milk", 3.50M, new Guid("95b57406-673d-4bce-98ac-86a16af49ef5")),
+            new Product("Flour", 2.75M, new Guid("b45898c0-5bf6-43a8-9898-c18fd28d491b")),
+            new Product("Pasta", 5.47M, new Guid("b45898c0-5bf6-43a8-9898-c18fd28d491b")),
+            new Product("Sugar", 4.99M, new Guid("ea357467-90e4-48fa-a93b-b078fe8d6a55")),
+            new Product("Tea", 13.20M, new Guid("a0e67d72-3a7d-46da-97ef-917ed0c8a0c3")),
+            new Product("Coffee", 23.30M, new Guid("8dedb784-e87f-40fe-a48d-3e84081597fe")),
         };
 
         public async Task AddAsync(Product product)

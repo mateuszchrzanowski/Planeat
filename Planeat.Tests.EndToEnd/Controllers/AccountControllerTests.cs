@@ -1,4 +1,4 @@
-﻿using Planeat.Infrastructure.Commands.User;
+﻿using Planeat.Infrastructure.Commands.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;

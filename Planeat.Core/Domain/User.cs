@@ -14,6 +14,8 @@ namespace Planeat.Core.Domain
         public string Salt { get; protected set; }
         public string Username { get; protected set; }
         public string FullName { get; protected set; }
+        public IEnumerable<Meal> Meals { get; protected set; }
+        public IEnumerable<Product> Products { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
 
         protected User()

@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 
 namespace Planeat.Core.Domain
 {
-    public class MealsList
+    public class MealList
     {
+        public Guid Id { get; protected set; }
         public IEnumerable<Meal> Meals { get; protected set; }
+        public Guid Owner { get; protected set; }
 
-        protected MealsList()
+        protected MealList()
         {
         }
 
-        public MealsList(IEnumerable<Meal> meals)
+        public MealList(IEnumerable<Meal> meals, Guid owner)
         {
+            Id = Guid.NewGuid();
             Meals = meals;
+            Owner = owner;
         }
     }
 }

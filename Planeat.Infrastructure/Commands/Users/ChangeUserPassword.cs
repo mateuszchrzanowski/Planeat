@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planeat.Infrastructure.Commands.User
+namespace Planeat.Infrastructure.Commands.Users
 {
     public class ChangeUserPassword : ICommand
     {

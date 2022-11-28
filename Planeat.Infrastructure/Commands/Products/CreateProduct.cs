@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planeat.Infrastructure.Commands.Product
+namespace Planeat.Infrastructure.Commands.Products
 {
     public class CreateProduct : ICommand
     {

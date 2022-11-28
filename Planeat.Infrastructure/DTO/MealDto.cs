@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Planeat.Infrastructure.DTO
 {
-    public class UserDto
+    public class MealDto
     {
         public Guid Id { get; set; }
-        public string Email { get; set; }
-        public string Username { get; set; }
-        public string FullName { get; set; }
-        public List<MealDto> Meals { get; set; }
+        public string Name { get; set; }
+        public IEnumerable<IngredientDto> Ingredients { get; set; }
     }
 }

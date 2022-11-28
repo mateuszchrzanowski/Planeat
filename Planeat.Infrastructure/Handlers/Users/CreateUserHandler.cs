@@ -1,5 +1,5 @@
 ﻿using Planeat.Infrastructure.Commands;
-using Planeat.Infrastructure.Commands.User;
+using Planeat.Infrastructure.Commands.Users;
 using Planeat.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planeat.Infrastructure.Handlers.User
+namespace Planeat.Infrastructure.Handlers.Users
 {
     public class CreateUserHandler : ICommandHandler<CreateUser>
     {

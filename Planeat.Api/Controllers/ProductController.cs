@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Planeat.Core.Domain;
 using Planeat.Infrastructure.Commands;
-using Planeat.Infrastructure.Commands.Product;
+using Planeat.Infrastructure.Commands.Products;
 using Planeat.Infrastructure.DTO;
 using Planeat.Infrastructure.Services;
 using System;

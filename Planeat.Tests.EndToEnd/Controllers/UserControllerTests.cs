@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Planeat.Api;
-using Planeat.Infrastructure.Commands.User;
+using Planeat.Infrastructure.Commands.Users;
 using Planeat.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
@@ -20,21 +20,6 @@ namespace Planeat.Tests.EndToEnd.Controllers
 {
     public class UserControllerTests : ControllerTestsBase
     {
-        //private readonly TestServer _server;
-        //private readonly HttpClient _client;
-
-        //public UserControllerTests()
-        //{
-        //    var path = Assembly.GetAssembly(typeof(UserControllerTests)).Location;
-
-        //    var hostBuilder = new WebHostBuilder().UseContentRoot(Path.GetDirectoryName(path))
-        //        .ConfigureServices(services => services.AddAutofac())
-        //        .UseStartup<Startup>();
-
-        //    _server = new TestServer(hostBuilder);
-        //    _client = _server.CreateClient();
-        //}
-
         [Fact]
         public async Task ForValidEmail_ReturnsUser()
         {
