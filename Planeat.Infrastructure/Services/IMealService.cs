@@ -9,7 +9,7 @@ namespace Planeat.Infrastructure.Services
 {
     public interface IMealService : IService
     {
-        Task<IEnumerable<MealDto>> GetByCreatedByAsync(Guid createdBy);
+        //Task<IEnumerable<MealDto>> GetByCreatedByAsync(Guid createdBy);
         Task<IEnumerable<MealDto>> GetAllAsync();
         Task<MealDto> GetAsync(string name);
         Task<MealDto> GetAsync(Guid id);

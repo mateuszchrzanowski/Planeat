@@ -32,11 +32,17 @@ namespace Planeat.Infrastructure.Services
             Meal meal = await _mealRepository.GetAsync(name);
             return _mapper.Map<Meal, MealDto>(meal);
         }
-
-        public Task<IEnumerable<MealDto>> GetByCreatedByAsync(Guid createdBy)
+        
+        public async Task<MealDto> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            Meal meal = await _mealRepository.GetAsync(id);
+            return _mapper.Map<Meal, MealDto>(meal);
         }
+
+        //public Task<IEnumerable<MealDto>> GetByCreatedByAsync(Guid createdBy)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public async Task CreateAsync(string name, IEnumerable<IngredientDto> ingredients, Guid createdBy)
         {
@@ -47,15 +53,10 @@ namespace Planeat.Infrastructure.Services
                 throw new Exception($"Meal with name: {name} already exist.");
             }
 
-            var mappedIngredients = _mapper.Map<IEnumerable<IngredientDto>, IEnumerable<Ingredient>>(ingredients);
+            var mappedIngredients = _mapper.Map<IEnumerable<IngredientDto>, 
+                IEnumerable<Ingredient>>(ingredients);
             meal = new Meal(name, mappedIngredients, createdBy);
             await _mealRepository.AddAsync(meal);
-        }
-
-        public async Task<MealDto> GetAsync(Guid id)
-        {
-            Meal meal = await _mealRepository.GetAsync(id);
-            return _mapper.Map<Meal, MealDto>(meal);
         }
 
         public async Task UpdateAsync(Guid id, string name, IEnumerable<IngredientDto> ingredients)

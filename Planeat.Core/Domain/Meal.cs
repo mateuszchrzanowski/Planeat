@@ -13,6 +13,8 @@ namespace Planeat.Core.Domain
         public IEnumerable<Ingredient> Ingredients { get; set; }
         public decimal TotalPrice { get; protected set; }
         public Guid CreatedBy { get; protected set; }
+        public DateTime CreatedAt { get; protected set; }
+        public DateTime UpdatedAt { get; protected set; }
 
         protected Meal()
         {
@@ -21,10 +23,12 @@ namespace Planeat.Core.Domain
         public Meal(string name, IEnumerable<Ingredient> ingredients, Guid createdBy)
         {
             Id = Guid.NewGuid();
-            Name = name;
+            SetName(name);
             SetIngredients(ingredients);
             TotalPrice = CalculateTotalPrice();
             CreatedBy = createdBy;
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public void SetName(string name)
@@ -35,12 +39,15 @@ namespace Planeat.Core.Domain
             }
 
             Name = name;
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public void SetIngredients(IEnumerable<Ingredient> ingredients)
         {
             Ingredients = ingredients;
             CalculateTotalPrice();
+
+            UpdatedAt = DateTime.UtcNow;
         }
 
         private decimal CalculateTotalPrice()
