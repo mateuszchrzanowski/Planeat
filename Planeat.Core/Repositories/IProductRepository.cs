@@ -14,6 +14,6 @@ namespace Planeat.Core.Repositories
         Task<Product> GetAsync(string name);
         Task AddAsync(Product product);
         Task UpdateAsync(Product product);
-        Task RemoveAsync(Guid id);
+        Task RemoveAsync(Product product);
     }
 }

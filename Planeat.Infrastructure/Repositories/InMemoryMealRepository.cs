@@ -23,12 +23,6 @@ namespace Planeat.Infrastructure.Repositories
             return meals;
         }
 
-        public async Task AddAsync(Meal meal)
-        {
-            _meals.Add(meal);
-            await Task.CompletedTask;
-        }
-
         public async Task<Meal> GetAsync(Guid id)
         {
             Meal meal = await Task.FromResult(_meals.SingleOrDefault(
@@ -43,9 +37,20 @@ namespace Planeat.Infrastructure.Repositories
             return meal;
         }
 
-        public Task<IEnumerable<Meal>> GetByCreatedByAsync(Guid createdBy)
+        public async Task AddAsync(Meal meal)
         {
-            throw new NotImplementedException();
+            _meals.Add(meal);
+            await Task.CompletedTask;
+        }
+
+        //public Task<IEnumerable<Meal>> GetByCreatedByAsync(Guid createdBy)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        
+        public async Task UpdateAsync(Meal meal)
+        {
+            await Task.CompletedTask;
         }
 
         public async Task RemoveAsync(Meal meal)
@@ -54,9 +59,5 @@ namespace Planeat.Infrastructure.Repositories
             await Task.CompletedTask;
         }
 
-        public async Task UpdateAsync(Meal meal)
-        {
-            await Task.CompletedTask;
-        }
     }
 }

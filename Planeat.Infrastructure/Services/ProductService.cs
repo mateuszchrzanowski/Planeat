@@ -33,6 +33,12 @@ namespace Planeat.Infrastructure.Services
             return _mapper.Map<Product, ProductDto>(product);
         }
 
+        public async Task<ProductDto> GetAsync(Guid id)
+        {
+            Product product = await _productRepository.GetAsync(id);
+            return _mapper.Map<Product, ProductDto>(product);
+        }
+
         public async Task CreateAsync(string name, decimal price, Guid createdBy)
         {
             Product product = await _productRepository.GetAsync(name);
@@ -44,6 +50,40 @@ namespace Planeat.Infrastructure.Services
 
             product = new Product(name, price, createdBy);
             await _productRepository.AddAsync(product);
+        }
+
+        public async Task UpdateAsync(Guid id, string name, decimal price)
+        {
+            Product product = await _productRepository.GetAsync(name);
+
+            if (product != null)
+            {
+                throw new Exception($"Product with name {name} already exist");
+            }
+
+            product = await _productRepository.GetAsync(id);
+
+            if (product == null)
+            {
+                throw new Exception("Prodcut does not exits.");
+            }
+
+            product.SetName(name);
+            product.SetPrice(price);
+
+            await _productRepository.UpdateAsync(product);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            Product product = await _productRepository.GetAsync(id);
+
+            if (product == null)
+            {
+                throw new Exception("Prodcut does not exits.");
+            }
+
+            await _productRepository.RemoveAsync(product);
         }
     }
 }

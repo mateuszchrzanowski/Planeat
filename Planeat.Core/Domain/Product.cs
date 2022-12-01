@@ -11,8 +11,9 @@ namespace Planeat.Core.Domain
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public decimal Price { get; protected set; }
-        public Guid CreatedBy { get; set; }
+        public Guid CreatedBy { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
+        public DateTime UpdatedAt { get; protected set; }
 
         protected Product()
         {
@@ -21,10 +22,33 @@ namespace Planeat.Core.Domain
         public Product(string name, decimal price, Guid createdBy)
         {
             Id = Guid.NewGuid();
-            Name = name;
-            Price = price;
+            SetName(name);
+            SetPrice(price);
             CreatedBy = createdBy;
             CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new Exception($"Product name can not be empty.");
+            }
+
+            Name = name;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetPrice(decimal price)
+        {
+            if (price < 0)
+            {
+                throw new Exception($"Product price can not be less than 0.");
+            }
+
+            Price = price;
+            UpdatedAt = DateTime.UtcNow;
         }
     }
 }
