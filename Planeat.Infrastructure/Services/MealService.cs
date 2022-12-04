@@ -14,11 +14,14 @@ namespace Planeat.Infrastructure.Services
     {
         private readonly IMealRepository _mealRepository;
         private readonly IMapper _mapper;
+        private readonly IProductRepository _productRepository;
 
-        public MealService(IMealRepository mealRepository, IMapper mapper)
+        public MealService(IMealRepository mealRepository, IMapper mapper,
+            IProductRepository productRepository)
         {
             _mealRepository = mealRepository;
             _mapper = mapper;
+            _productRepository = productRepository;
         }
 
         public async Task<IEnumerable<MealDto>> GetAllAsync()
