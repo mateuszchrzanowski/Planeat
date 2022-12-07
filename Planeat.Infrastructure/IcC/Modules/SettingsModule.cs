@@ -22,7 +22,9 @@ namespace Planeat.Infrastructure.IcC.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance(_configuration.GetSettings<GeneralSettings>()).SingleInstance();
+            builder.RegisterInstance(_configuration
+                .GetSettings<GeneralSettings>())
+                .SingleInstance();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Planeat.Infrastructure.Services
     {
         Task<IEnumerable<UserDto>> GetAllAsync();
         Task<UserDto> GetAsync(string email);
-        Task RegisterAsync(string email, string username, string password);
+        Task RegisterAsync(string email, string username, string password, int roleId);
+        Task LoginAsync(string email, string password);
     }
 }

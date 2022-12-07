@@ -15,9 +15,13 @@ namespace Planeat.Infrastructure.IcC.Modules
         {
             var assembly = typeof(CommandModule).GetTypeInfo().Assembly;
 
-            builder.RegisterAssemblyTypes(assembly).AsClosedTypesOf(typeof(ICommandHandler<>)).InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(assembly)
+                .AsClosedTypesOf(typeof(ICommandHandler<>))
+                .InstancePerLifetimeScope();
             
-            builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>().InstancePerLifetimeScope();
+            builder.RegisterType<CommandDispatcher>()
+                .As<ICommandDispatcher>()
+                .InstancePerLifetimeScope();
         }
     }
 }
