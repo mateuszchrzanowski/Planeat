@@ -20,7 +20,8 @@ namespace Planeat.Infrastructure.Handlers.Users
 
         public async Task HandleAsync(CreateUser command)
         {
-            await _userService.RegisterAsync(command.Email, command.Username, command.Password);
+            await _userService.RegisterAsync(
+                command.Email, command.Username, command.Password, command.RoleId);
         }
     }
 }

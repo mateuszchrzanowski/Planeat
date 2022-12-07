@@ -56,11 +56,19 @@ namespace Planeat.Infrastructure.Services
                 throw new Exception($"Meal with name: {name} already exist.");
             }
 
+            bool isValidIngredient = await IsValidIngredients(ingredients);
+
+            if (!isValidIngredient)
+            {
+                throw new Exception("Invalid ingredients");
+            }
+
             var mappedIngredients = _mapper.Map<IEnumerable<IngredientDto>, 
                 IEnumerable<Ingredient>>(ingredients);
             meal = new Meal(name, mappedIngredients, createdBy);
             await _mealRepository.AddAsync(meal);
         }
+
 
         public async Task UpdateAsync(Guid id, string name, IEnumerable<IngredientDto> ingredients)
         {
@@ -78,11 +86,33 @@ namespace Planeat.Infrastructure.Services
                 throw new Exception("Meal does not exist.");
             }
 
+            bool isValidIngredient = await IsValidIngredients(ingredients);
+
+            if (!isValidIngredient)
+            {
+                throw new Exception("Invalid ingredients");
+            }
+
             meal.SetName(name);
             var mappedIngredients = _mapper.Map<IEnumerable<IngredientDto>, IEnumerable<Ingredient>>(ingredients);
             meal.SetIngredients(mappedIngredients);
 
             await _mealRepository.UpdateAsync(meal);
+        }
+        
+        private async Task<bool> IsValidIngredients(IEnumerable<IngredientDto> ingredients)
+        {
+            foreach (IngredientDto ingredient in ingredients)
+            {
+                var product = await _productRepository.GetAsync(ingredient.ProductId);
+
+                if (product == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public async Task DeleteAsync(Guid id)

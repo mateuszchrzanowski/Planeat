@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Moq;
 using Planeat.Core.Domain;
 using Planeat.Core.Repositories;
@@ -20,9 +21,12 @@ namespace Planeat.Tests.Services
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var mapperMock = new Mock<IMapper>();
+            //var encrypterMock = new Mock<IEncrypter>();
+            var passwordHasherMock = new Mock<IPasswordHasher<User>>();
 
-            var userService = new UserService(userRepositoryMock.Object, mapperMock.Object);
-            await userService.RegisterAsync("userTest@user.com", "userTest", "secretTest");
+            var userService = new UserService(
+                userRepositoryMock.Object, mapperMock.Object, passwordHasherMock.Object);
+            await userService.RegisterAsync("userTest@user.com", "userTest", "secretTest", 1);
 
             userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
         }

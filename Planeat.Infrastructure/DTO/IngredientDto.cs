@@ -9,7 +9,7 @@ namespace Planeat.Infrastructure.DTO
     public class IngredientDto
     {
         public Guid ProductId { get; set; }
-        public string Name { get; set; }
+        //public string Name { get; set; }
         public int Quantity { get; set; }
     }
 }

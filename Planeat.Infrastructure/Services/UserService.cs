@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Planeat.Core.Domain;
 using Planeat.Core.Repositories;
 using Planeat.Infrastructure.DTO;
@@ -14,11 +15,14 @@ namespace Planeat.Infrastructure.Services
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, 
+            IMapper mapper, IPasswordHasher<User> passwordHasher)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
@@ -34,7 +38,27 @@ namespace Planeat.Infrastructure.Services
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public async Task RegisterAsync(string email, string username, string password)
+        public async Task LoginAsync(string email, string password)
+        {
+            User user = await _userRepository.GetAsync(email);
+
+            if (user == null)
+            {
+                throw new Exception("Invalid credentials.");
+            }
+
+            _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+
+            if (true)
+            {
+                return;
+            }
+
+            throw new Exception("Invalid credentials.");
+        }
+
+        public async Task RegisterAsync(
+            string email, string username, string password, int roleId)
         {
             User user = await _userRepository.GetAsync(email);
 
@@ -43,8 +67,10 @@ namespace Planeat.Infrastructure.Services
                 throw new Exception($"User with email: {email} already exist.");
             }
 
-            var salt = Guid.NewGuid().ToString("N");
-            user = new User(email, username, password, salt);
+            var hashedPassword = _passwordHasher.HashPassword(null, password);
+            //var salt = _encrypter.GetSalt(password);
+            //var hash = _encrypter.GetHash(password, salt);
+            user = new User(email, username, hashedPassword, roleId);
             await _userRepository.AddAsync(user);
         }
     }
