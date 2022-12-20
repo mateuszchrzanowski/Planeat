@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Planeat.Infrastructure.Commands;
 using Planeat.Infrastructure.Commands.Users;
+using Planeat.Infrastructure.Common;
 using Planeat.Infrastructure.DTO;
+using Planeat.Infrastructure.Extensions;
 using Planeat.Infrastructure.Services;
 using Planeat.Infrastructure.Settings;
 using System;
@@ -15,11 +20,17 @@ namespace Planeat.Api.Controllers
     public class UserController : ApiControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IValidator<CreateUser> _validator;
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
         public UserController(IUserService userService,
-            ICommandDispatcher commandDispatcher) : base(commandDispatcher)
+            ICommandDispatcher commandDispatcher,
+            IValidator<CreateUser> validator, 
+            IJwtTokenGenerator jwtTokenGenerator) : base(commandDispatcher)
         {
             _userService = userService;
+            _validator = validator;
+            _jwtTokenGenerator = jwtTokenGenerator;
         }
 
         [HttpGet]
@@ -36,6 +47,7 @@ namespace Planeat.Api.Controllers
         }
 
         [HttpGet("{email}")]
+        [Authorize]
         public async Task<IActionResult> Get(string email)
         {
             UserDto user = await _userService.GetAsync(email);
@@ -45,14 +57,6 @@ namespace Planeat.Api.Controllers
             }
 
             return Ok(user);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateUser command)
-        {
-            await CommandDispatcher.DispatchAsync(command);
-            
-            return Created($"user/{command.Email}", null);
         }
     }
 }

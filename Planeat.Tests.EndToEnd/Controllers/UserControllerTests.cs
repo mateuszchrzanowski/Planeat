@@ -45,7 +45,8 @@ namespace Planeat.Tests.EndToEnd.Controllers
             {
                 Email = "testUser@user.com",
                 Password = "testSecret",
-                Username = "testUser"
+                FirstName = "test first name",
+                LastName = "test last name"
             };
             var payload = GetPayload(command);
             var response = await Client.PostAsync("user", payload);

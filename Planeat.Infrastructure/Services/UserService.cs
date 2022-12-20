@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Planeat.Core.Domain;
 using Planeat.Core.Repositories;
+using Planeat.Infrastructure.Commands.Users;
+using Planeat.Infrastructure.Common;
 using Planeat.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
@@ -16,13 +19,16 @@ namespace Planeat.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
-        public UserService(IUserRepository userRepository, 
-            IMapper mapper, IPasswordHasher<User> passwordHasher)
+        public UserService(IUserRepository userRepository,
+            IMapper mapper, IPasswordHasher<User> passwordHasher, 
+            IJwtTokenGenerator jwtTokenGenerator)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
+            _jwtTokenGenerator = jwtTokenGenerator;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
@@ -47,30 +53,26 @@ namespace Planeat.Infrastructure.Services
                 throw new Exception("Invalid credentials.");
             }
 
-            _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
 
-            if (true)
+            if (result == PasswordVerificationResult.Failed)
             {
-                return;
+                throw new Exception("Invalid credentials.");
             }
-
-            throw new Exception("Invalid credentials.");
         }
 
         public async Task RegisterAsync(
-            string email, string username, string password, int roleId)
+            string email, string firstName, string lastName, string password)
         {
             User user = await _userRepository.GetAsync(email);
 
             if (user != null)
             {
-                throw new Exception($"User with email: {email} already exist.");
+                throw new Exception($"User with email: '{email}' already exist.");
             }
 
             var hashedPassword = _passwordHasher.HashPassword(null, password);
-            //var salt = _encrypter.GetSalt(password);
-            //var hash = _encrypter.GetHash(password, salt);
-            user = new User(email, username, hashedPassword, roleId);
+            user = new User(email, hashedPassword, firstName, lastName);
             await _userRepository.AddAsync(user);
         }
     }
