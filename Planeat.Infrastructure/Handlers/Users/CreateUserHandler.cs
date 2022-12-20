@@ -1,5 +1,8 @@
-﻿using Planeat.Infrastructure.Commands;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Planeat.Infrastructure.Commands;
 using Planeat.Infrastructure.Commands.Users;
+using Planeat.Infrastructure.Extensions;
 using Planeat.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -20,8 +23,9 @@ namespace Planeat.Infrastructure.Handlers.Users
 
         public async Task HandleAsync(CreateUser command)
         {
+
             await _userService.RegisterAsync(
-                command.Email, command.Username, command.Password, command.RoleId);
+                command.Email, command.FirstName, command.LastName, command.Password);
         }
     }
 }

@@ -11,10 +11,9 @@ namespace Planeat.Core.Domain
         public Guid Id { get; protected set; }
         public string Email { get; protected set; }
         public string Password { get; protected set; }
-        //public string Salt { get; protected set; }
-        public string Username { get; protected set; }
-        public string FullName { get; protected set; }
-        public int RoleId { get; protected set; }
+        public string FirstName { get; protected set; }
+        public string LastName { get; protected set; }
+        public int RoleId { get; protected set; } = 2;
         public IEnumerable<Meal> Meals { get; protected set; }
         public IEnumerable<Product> Products { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
@@ -24,15 +23,78 @@ namespace Planeat.Core.Domain
         {
         }
 
-        public User(string email, string username, string password /*string salt*/, int roleId)
+        public User(string email, string password, string firstName, string lastName)
         {
             Id = Guid.NewGuid();
-            Email = email.ToLowerInvariant();
-            Username = username;
-            Password = password;
-            RoleId = roleId;
-            //Salt = salt;
+            SetEmail(email);
+            SetPassword(password);
+            SetFirstName(firstName);
+            SetLastName(lastName);
             CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new Exception("Email must not be empty");
+            }
+
+            if (email.Length > 100)
+            {
+                throw new Exception("Email must not be longer than 100 characters.");
+            }
+
+            Email = email.ToLowerInvariant();
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetPassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new Exception("Password must not be empty");
+            }
+
+            if (password.Length < 8)
+            {
+                throw new Exception("Password must be at least 8 characters long.");
+            }
+
+            Password = password;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetFirstName(string firstName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName))
+            {
+                throw new Exception("First Name must not be empty");
+            }
+
+            if (firstName.Length > 100)
+            {
+                throw new Exception("First Name must not be longer than 100 characters.");
+            }
+
+            FirstName = firstName;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetLastName(string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(lastName))
+            {
+                throw new Exception("Last Name must not be empty");
+            }
+
+            if (lastName.Length > 100)
+            {
+                throw new Exception("Last Name must not be longer than 100 characters.");
+            }
+
+            LastName = lastName;
             UpdatedAt = DateTime.UtcNow;
         }
     }

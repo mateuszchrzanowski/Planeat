@@ -25,6 +25,10 @@ namespace Planeat.Infrastructure.IcC.Modules
             builder.RegisterInstance(_configuration
                 .GetSettings<GeneralSettings>())
                 .SingleInstance();
+
+            builder.RegisterInstance(_configuration
+                .GetSettings<AuthenticationSettings>())
+                .SingleInstance();
         }
     }
 }

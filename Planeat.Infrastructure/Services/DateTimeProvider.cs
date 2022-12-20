@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Planeat.Infrastructure.Services
 {
-    //public interface IEncrypter
-    //{
-    //    string GetSalt(string value);
-    //    string GetHash(string value, string salt);
-    //}
+    public class DateTimeProvider : IDateTimeProvider
+    {
+        public DateTime UtcNow => DateTime.UtcNow;
+    }
 }

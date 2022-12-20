@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Moq;
 using Planeat.Core.Domain;
 using Planeat.Core.Repositories;
+using Planeat.Infrastructure.Common;
 using Planeat.Infrastructure.Repositories;
 using Planeat.Infrastructure.Services;
 using System;
@@ -23,10 +24,13 @@ namespace Planeat.Tests.Services
             var mapperMock = new Mock<IMapper>();
             //var encrypterMock = new Mock<IEncrypter>();
             var passwordHasherMock = new Mock<IPasswordHasher<User>>();
+            var jwtTokenGeneratorMock = new Mock<IJwtTokenGenerator>();
 
             var userService = new UserService(
-                userRepositoryMock.Object, mapperMock.Object, passwordHasherMock.Object);
-            await userService.RegisterAsync("userTest@user.com", "userTest", "secretTest", 1);
+                userRepositoryMock.Object, mapperMock.Object, 
+                passwordHasherMock.Object, jwtTokenGeneratorMock.Object);
+            await userService.RegisterAsync(
+                "userTest@user.com", "secretTest", "firstNameTest", "lastNameTest");
 
             userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
         }
