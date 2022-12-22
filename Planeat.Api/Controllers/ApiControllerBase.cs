@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Planeat.Infrastructure.Commands;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Planeat.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public abstract class ApiControllerBase : ControllerBase
     {
         protected readonly ICommandDispatcher CommandDispatcher;
