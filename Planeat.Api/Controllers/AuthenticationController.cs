@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Planeat.Infrastructure.Commands;
@@ -14,31 +15,15 @@ using System.Threading.Tasks;
 
 namespace Planeat.Api.Controllers
 {
+    [AllowAnonymous]
     public class AuthenticationController : ApiControllerBase
     {
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IValidator<CreateUser> _createUserValidator;
-        private readonly IValidator<LoginUser> _loginUserValidator;
         private readonly IMemoryCache _cache;
 
-        public AuthenticationController(ICommandDispatcher commandDispatcher,
-            IJwtTokenGenerator jwtTokenGenerator,
-            IValidator<CreateUser> validator,
-            IValidator<LoginUser> loginUserValidator, IMemoryCache cache) : base(commandDispatcher)
+        public AuthenticationController(ICommandDispatcher commandDispatcher, 
+            IMemoryCache cache) : base(commandDispatcher)
         {
-            _jwtTokenGenerator = jwtTokenGenerator;
-            _createUserValidator = validator;
-            _loginUserValidator = loginUserValidator;
             _cache = cache;
-        }
-
-        [HttpGet("token")]
-        public IActionResult GetToken()
-        {
-            var token = _jwtTokenGenerator.GenerateToken(
-                Guid.NewGuid(), "test first name", "test last name", 1);
-
-            return Ok(token);
         }
 
         [HttpPost("register")]
@@ -62,7 +47,7 @@ namespace Planeat.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            command.JwtTokenId = Guid.NewGuid();
+            //command.JwtTokenId = Guid.NewGuid();
             await CommandDispatcher.DispatchAsync(command);
             var jwtToken = _cache.GetJwtToken(command.JwtTokenId);
 

@@ -47,7 +47,6 @@ namespace Planeat.Api.Controllers
         }
 
         [HttpGet("{email}")]
-        [Authorize]
         public async Task<IActionResult> Get(string email)
         {
             UserDto user = await _userService.GetAsync(email);
