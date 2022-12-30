@@ -13,7 +13,8 @@ namespace Planeat.Core.Domain
         public string Password { get; protected set; }
         public string FirstName { get; protected set; }
         public string LastName { get; protected set; }
-        public int RoleId { get; protected set; } = 2;
+        public Role Role { get; protected set; }
+        //public int RoleId { get; protected set; }
         public IEnumerable<Meal> Meals { get; protected set; }
         public IEnumerable<Product> Products { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
@@ -23,13 +24,14 @@ namespace Planeat.Core.Domain
         {
         }
 
-        public User(string email, string password, string firstName, string lastName)
+        public User(string email, string password, string firstName, string lastName, Role role)
         {
             Id = Guid.NewGuid();
             SetEmail(email);
             SetPassword(password);
             SetFirstName(firstName);
             SetLastName(lastName);
+            SetRole(role);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -95,6 +97,12 @@ namespace Planeat.Core.Domain
             }
 
             LastName = lastName;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetRole(Role role)
+        {
+            Role = role;
             UpdatedAt = DateTime.UtcNow;
         }
     }

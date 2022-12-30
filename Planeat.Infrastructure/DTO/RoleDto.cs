@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planeat.Infrastructure.Settings
+namespace Planeat.Infrastructure.DTO
 {
-    public class GeneralSettings
+    public class RoleDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public bool SeedData { get; set; }
-
     }
 }

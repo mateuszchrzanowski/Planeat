@@ -21,6 +21,7 @@ namespace Planeat.Tests.Services
         public async Task RegisterAsync_AddValidUser_ShouldAddAsyncOnUserRepository()
         {
             var userRepositoryMock = new Mock<IUserRepository>();
+            var roleRepositoryMock = new Mock<IRoleRepository>();
             var mapperMock = new Mock<IMapper>();
             //var encrypterMock = new Mock<IEncrypter>();
             var passwordHasherMock = new Mock<IPasswordHasher<User>>();
@@ -28,9 +29,9 @@ namespace Planeat.Tests.Services
 
             var userService = new UserService(
                 userRepositoryMock.Object, mapperMock.Object, 
-                passwordHasherMock.Object, jwtTokenGeneratorMock.Object);
+                passwordHasherMock.Object, jwtTokenGeneratorMock.Object, roleRepositoryMock.Object);
             await userService.RegisterAsync(
-                "userTest@user.com", "secretTest", "firstNameTest", "lastNameTest");
+                "userTest@user.com", "secretTest", "firstNameTest", "lastNameTest", "User");
 
             userRepositoryMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
         }

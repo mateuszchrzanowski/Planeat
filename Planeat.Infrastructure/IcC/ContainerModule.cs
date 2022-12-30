@@ -26,6 +26,7 @@ namespace Planeat.Infrastructure.IcC
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<CommandModule>();
             builder.RegisterModule<ValidatorModule>();
+            builder.RegisterModule<CommonModule>();
             builder.RegisterModule(new SettingsModule(_configuration));
         }
     }

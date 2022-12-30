@@ -14,5 +14,7 @@ namespace Planeat.Infrastructure.Commands.Users
         public string LastName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        //public int RoleId { get; private set; } = 1;
+        public string RoleName { get; protected set; } = "User";
     }
 }

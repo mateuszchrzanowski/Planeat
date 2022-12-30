@@ -24,7 +24,7 @@ namespace Planeat.Infrastructure.Common
             _authenticationSettings = authenticationSettings;
         }
 
-        public string GenerateToken(Guid userId, string firstName, string lastName, int roleId)
+        public string GenerateToken(Guid userId, string firstName, string lastName, string role)
         {
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey)), 
@@ -34,7 +34,7 @@ namespace Planeat.Infrastructure.Common
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 new Claim(ClaimTypes.Name, $"{firstName} {lastName}"),
-                new Claim(ClaimTypes.Role, roleId.ToString()),
+                new Claim(ClaimTypes.Role, role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

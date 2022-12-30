@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planeat.Infrastructure.Common
 {
-    public interface IJwtTokenGenerator : ICommon
+    public interface ICommon
     {
-        string GenerateToken(Guid userId, string firstName, string lastName, string role);
     }
 }
