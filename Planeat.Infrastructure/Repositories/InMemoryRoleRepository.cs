@@ -12,9 +12,15 @@ namespace Planeat.Infrastructure.Repositories
     {
         private static ISet<Role> _roles = new HashSet<Role>
         {
-            new Role(1, "user"),
-            new Role(2, "admin"),
+            new Role("User"),
+            new Role("Admin"),
         };
+
+        public async Task AddAsync(Role role)
+        {
+            _roles.Add(role);
+            await Task.CompletedTask;
+        }
 
         public async Task<IEnumerable<Role>> GetAllAsync()
         {
@@ -22,9 +28,15 @@ namespace Planeat.Infrastructure.Repositories
             return roles;
         }
 
-        public async Task<Role> GetAsync(int id)
+        //public async Task<Role> GetAsync(int id)
+        //{
+        //    Role role = await Task.FromResult(_roles.SingleOrDefault(r => r.Id == id));
+        //    return role;
+        //}
+
+        public async Task<Role> GetAsync(string name)
         {
-            Role role = await Task.FromResult(_roles.SingleOrDefault(r => r.Id == id));
+            Role role = await Task.FromResult(_roles.SingleOrDefault(r => r.Name == name));
             return role;
         }
     }

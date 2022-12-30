@@ -10,6 +10,7 @@ namespace Planeat.Core.Repositories
     public interface IRoleRepository : IRepository
     {
         Task<IEnumerable<Role>> GetAllAsync();
-        Task<Role> GetAsync(int id);
+        Task<Role> GetAsync(string name);
+        Task AddAsync(Role role);
     }
 }

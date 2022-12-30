@@ -33,7 +33,7 @@ namespace Planeat.Infrastructure.Handlers.Users
             var jwtToken = _jwtTokenGenerator.GenerateToken(user.Id,
                 user.FirstName,
                 user.LastName,
-                user.RoleId);
+                user.RoleName);
             _cache.SetJwtToken(command.JwtTokenId, jwtToken);
         }
     }

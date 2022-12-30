@@ -19,16 +19,18 @@ namespace Planeat.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IRoleRepository _roleRepository;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
         public UserService(IUserRepository userRepository,
-            IMapper mapper, IPasswordHasher<User> passwordHasher, 
-            IJwtTokenGenerator jwtTokenGenerator)
+            IMapper mapper, IPasswordHasher<User> passwordHasher,
+            IJwtTokenGenerator jwtTokenGenerator, IRoleRepository roleRepository)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _roleRepository = roleRepository;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
@@ -62,7 +64,7 @@ namespace Planeat.Infrastructure.Services
         }
 
         public async Task RegisterAsync(
-            string email, string firstName, string lastName, string password)
+            string email, string firstName, string lastName, string password, string roleName)
         {
             User user = await _userRepository.GetAsync(email);
 
@@ -71,9 +73,39 @@ namespace Planeat.Infrastructure.Services
                 throw new Exception($"User with email: '{email}' already exist.");
             }
 
+            var role = await _roleRepository.GetAsync(roleName);
+
+            if (role == null)
+            {
+                throw new Exception("Given role doesn't exist.");
+            }
+
             var hashedPassword = _passwordHasher.HashPassword(null, password);
-            user = new User(email, hashedPassword, firstName, lastName);
+
+            user = new User(email, hashedPassword, firstName, lastName, role);
             await _userRepository.AddAsync(user);
+        }
+
+        public async Task ChangePasswordAsync(Guid id, string currentPassword, string newPassword)
+        {
+            User user = await _userRepository.GetAsync(id);
+
+            if (user == null)
+            {
+                throw new Exception($"User does not exist.");
+            }
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, currentPassword);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                throw new Exception("Invalid current password.");
+            }
+
+            var hashedPassword = _passwordHasher.HashPassword(user, newPassword);
+            user.SetPassword(hashedPassword);
+
+            await _userRepository.UpdateAsync(user);
         }
     }
 }

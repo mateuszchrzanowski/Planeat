@@ -93,7 +93,7 @@ namespace Planeat.Api
             // for you.
 
             builder.RegisterModule(new ContainerModule(Configuration));
-            builder.RegisterType<JwtTokenGenerator>().As<IJwtTokenGenerator>();
+            //builder.RegisterType<JwtTokenGenerator>().As<IJwtTokenGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +107,13 @@ namespace Planeat.Api
             }
 
             ValidatorOptions.Global.LanguageManager.Enabled = false;
+
+            var generalSettings = app.ApplicationServices.GetService<GeneralSettings>();
+            if (generalSettings.SeedData)
+            {
+                var datainitializer = app.ApplicationServices.GetService<IDataInitializer>();
+                datainitializer.SeedAsync();
+            }
 
             app.UseAuthentication();
 

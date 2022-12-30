@@ -29,6 +29,10 @@ namespace Planeat.Infrastructure.IcC.Modules
             builder.RegisterType<LoginUserValidator>()
                 .As<IValidator<LoginUser>>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<ChangeUserPasswordValidator>()
+                .As<IValidator<ChangeUserPassword>>()
+                .InstancePerLifetimeScope();
         }
     }
 }

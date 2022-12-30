@@ -10,12 +10,7 @@ namespace Planeat.Infrastructure.Repositories
 {
     public class InMemoryUserRepository : IUserRepository
     {
-        private static ISet<User> _users = new HashSet<User>
-        {
-            new User("user1@user.com", "secret1secret1", "firstName1", "lastName1"),
-            new User("user2@user.com", "secret2secret2", "firstName2", "lastName2"),
-            new User("user3@user.com", "secret3secret3", "firstName3", "lastName3")
-        };
+        private static ISet<User> _users = new HashSet<User>();
 
         public async Task AddAsync(User user)
         {
@@ -50,6 +45,10 @@ namespace Planeat.Infrastructure.Repositories
 
         public async Task UpdateAsync(User user)
         {
+            await RemoveAsync(user.Id);
+            //_users.Remove(oldUser);
+
+            _users.Add(user);
             await Task.CompletedTask;
         }
     }
