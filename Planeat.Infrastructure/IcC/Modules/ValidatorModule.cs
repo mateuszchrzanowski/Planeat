@@ -33,6 +33,10 @@ namespace Planeat.Infrastructure.IcC.Modules
             builder.RegisterType<ChangeUserPasswordValidator>()
                 .As<IValidator<ChangeUserPassword>>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<ChangeUserRoleValidator>()
+                .As<IValidator<ChangeUserRole>>()
+                .InstancePerLifetimeScope();
         }
     }
 }

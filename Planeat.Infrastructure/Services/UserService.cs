@@ -107,5 +107,25 @@ namespace Planeat.Infrastructure.Services
 
             await _userRepository.UpdateAsync(user);
         }
+
+        public async Task ChangeRoleAsync(Guid id, string roleName)
+        {
+            User user = await _userRepository.GetAsync(id);
+
+            if (user == null)
+            {
+                throw new Exception("User does not exist.");
+            }
+
+            Role role = await _roleRepository.GetAsync(roleName);
+
+            if (role == null)
+            {
+                throw new Exception("Role does not exist.");
+            }
+
+            user.SetRole(role);
+            await _userRepository.UpdateAsync(user);
+        }
     }
 }

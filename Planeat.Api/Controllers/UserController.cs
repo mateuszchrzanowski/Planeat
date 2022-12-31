@@ -20,15 +20,11 @@ namespace Planeat.Api.Controllers
     public class UserController : ApiControllerBase
     {
         private readonly IUserService _userService;
-        //private readonly IValidator<CreateUser> _validator;
-        //private readonly IJwtTokenGenerator _jwtTokenGenerator;
 
         public UserController(IUserService userService,
             ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _userService = userService;
-            //_validator = validator;
-            //_jwtTokenGenerator = jwtTokenGenerator;
         }
 
         [HttpGet]
@@ -48,6 +44,7 @@ namespace Planeat.Api.Controllers
         public async Task<IActionResult> Get(string email)
         {
             UserDto user = await _userService.GetAsync(email);
+            
             if (user == null)
             {
                 return NotFound();
@@ -58,6 +55,19 @@ namespace Planeat.Api.Controllers
 
         [HttpPut("changePassword")]
         public async Task<IActionResult> ChangePassword(ChangeUserPassword command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await CommandDispatcher.DispatchAsync(command);
+
+            return NoContent();
+        }
+
+        [HttpPut("changeRole")]
+        public async Task<IActionResult> ChangeRole(ChangeUserRole command)
         {
             if (!ModelState.IsValid)
             {
