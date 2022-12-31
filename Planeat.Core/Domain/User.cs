@@ -48,6 +48,11 @@ namespace Planeat.Core.Domain
                 throw new Exception("Email must not be longer than 100 characters.");
             }
 
+            if (email == Email)
+            {
+                return;
+            }
+
             Email = email.ToLowerInvariant();
             UpdatedAt = DateTime.UtcNow;
         }
@@ -62,6 +67,11 @@ namespace Planeat.Core.Domain
             if (password.Length < 8)
             {
                 throw new Exception("Password must be at least 8 characters long.");
+            }
+
+            if (password == Password)
+            {
+                return;
             }
 
             Password = password;
@@ -80,6 +90,11 @@ namespace Planeat.Core.Domain
                 throw new Exception("First Name must not be longer than 100 characters.");
             }
 
+            if (firstName == FirstName)
+            {
+                return;
+            }
+
             FirstName = firstName;
             UpdatedAt = DateTime.UtcNow;
         }
@@ -96,12 +111,27 @@ namespace Planeat.Core.Domain
                 throw new Exception("Last Name must not be longer than 100 characters.");
             }
 
+            if (lastName == LastName)
+            {
+                return;
+            }
+
             LastName = lastName;
             UpdatedAt = DateTime.UtcNow;
         }
 
         public void SetRole(Role role)
         {
+            if (role == null)
+            {
+                throw new Exception("Role must not be empty");
+            }
+
+            if (role == Role)
+            {
+                return;
+            }
+
             Role = role;
             UpdatedAt = DateTime.UtcNow;
         }

@@ -14,5 +14,6 @@ namespace Planeat.Infrastructure.Services
         Task RegisterAsync(string email, string firstName, string lastName, string password, string roleName);
         Task LoginAsync(string email, string password);
         Task ChangePasswordAsync(Guid id, string currentPassword, string newPassword);
+        Task ChangeRoleAsync(Guid id, string roleName);
     }
 }
