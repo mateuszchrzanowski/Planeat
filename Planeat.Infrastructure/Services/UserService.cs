@@ -20,17 +20,17 @@ namespace Planeat.Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IRoleRepository _roleRepository;
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        private readonly IProductListRepository _productListRepository;
 
         public UserService(IUserRepository userRepository,
-            IMapper mapper, IPasswordHasher<User> passwordHasher,
-            IJwtTokenGenerator jwtTokenGenerator, IRoleRepository roleRepository)
+            IMapper mapper, IPasswordHasher<User> passwordHasher, IRoleRepository roleRepository, 
+            IProductListRepository productListRepository)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
-            _jwtTokenGenerator = jwtTokenGenerator;
             _roleRepository = roleRepository;
+            _productListRepository = productListRepository;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
@@ -84,6 +84,7 @@ namespace Planeat.Infrastructure.Services
 
             user = new User(email, hashedPassword, firstName, lastName, role);
             await _userRepository.AddAsync(user);
+            await _productListRepository.AddAsync(user.Products);
         }
 
         public async Task ChangePasswordAsync(Guid id, string currentPassword, string newPassword)

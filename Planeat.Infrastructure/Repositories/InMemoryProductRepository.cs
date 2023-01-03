@@ -10,15 +10,7 @@ namespace Planeat.Infrastructure.Repositories
 {
     public class InMemoryProductRepository : IProductRepository
     {
-        private static ISet<Product> _products = new HashSet<Product>
-        {
-            new Product("Milk", 3.50M, new Guid()),
-            new Product("Flour", 2.75M, new Guid()),
-            new Product("Pasta", 5.47M, new Guid()),
-            new Product("Sugar", 4.99M, new Guid()),
-            new Product("Tea", 13.20M, new Guid()),
-            new Product("Coffee", 23.30M, new Guid()),
-        };
+        private static ISet<Product> _products = new HashSet<Product>();
         
         public async Task<IEnumerable<Product>> GetAllAsync()
         {

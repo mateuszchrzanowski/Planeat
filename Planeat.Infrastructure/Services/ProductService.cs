@@ -14,11 +14,14 @@ namespace Planeat.Infrastructure.Services
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
+        private readonly IProductListRepository _productListRepository;
 
-        public ProductService(IMapper mapper, IProductRepository productRepository)
+        public ProductService(IMapper mapper, IProductRepository productRepository, 
+            IProductListRepository productListRepository)
         {
             _mapper = mapper;
             _productRepository = productRepository;
+            _productListRepository = productListRepository;
         }
 
         public async Task<IEnumerable<ProductDto>> GetAllAsync()
@@ -39,7 +42,7 @@ namespace Planeat.Infrastructure.Services
             return _mapper.Map<Product, ProductDto>(product);
         }
 
-        public async Task CreateAsync(string name, decimal price, Guid createdBy)
+        public async Task CreateAsync(string name, decimal price, Guid productListId)
         {
             Product product = await _productRepository.GetAsync(name);
 
@@ -48,8 +51,16 @@ namespace Planeat.Infrastructure.Services
                 throw new Exception($"Prodcut with name {name} already exist.");
             }
 
-            product = new Product(name, price, createdBy);
+            ProductList productsList = await _productListRepository.GetAsync(productListId);
+
+            if (productsList == null)
+            {
+                throw new Exception($"Prodcut List doesn't exist.");
+            }
+
+            product = Product.Create(name, price, productsList);
             await _productRepository.AddAsync(product);
+            await _productListRepository.UpdateAsync(productsList);
         }
 
         public async Task UpdateAsync(Guid id, string name, decimal price)
