@@ -14,6 +14,6 @@ namespace Planeat.Infrastructure.DTO
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string RoleName { get; set; }
-        public List<MealDto> Meals { get; set; }
+        //public List<MealDto> Meals { get; set; }
     }
 }

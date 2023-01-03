@@ -14,9 +14,10 @@ namespace Planeat.Core.Domain
         public string FirstName { get; protected set; }
         public string LastName { get; protected set; }
         public Role Role { get; protected set; }
-        //public int RoleId { get; protected set; }
+        public ProductList Products { get; protected set; }
+
         public IEnumerable<Meal> Meals { get; protected set; }
-        public IEnumerable<Product> Products { get; protected set; }
+        //public IEnumerable<Product> Products { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
@@ -32,6 +33,7 @@ namespace Planeat.Core.Domain
             SetFirstName(firstName);
             SetLastName(lastName);
             SetRole(role);
+            Products = ProductList.Create(this);
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
         }

@@ -20,7 +20,7 @@ namespace Planeat.Infrastructure.Handlers.Products
 
         public async Task HandleAsync(CreateProduct command)
         {
-            await _productService.CreateAsync(command.Name, command.Price, command.CreatedBy);
+            await _productService.CreateAsync(command.Name, command.Price, command.ProductListId);
         }
     }
 }

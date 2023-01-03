@@ -10,6 +10,6 @@ namespace Planeat.Infrastructure.Commands.Products
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public Guid CreatedBy { get; set; }
+        public Guid ProductListId { get; set; }
     }
 }

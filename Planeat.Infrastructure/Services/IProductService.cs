@@ -12,7 +12,7 @@ namespace Planeat.Infrastructure.Services
         Task<IEnumerable<ProductDto>> GetAllAsync();
         Task<ProductDto> GetAsync(Guid id);
         Task<ProductDto> GetAsync(string name);
-        Task CreateAsync(string name, decimal price, Guid cretaedBy);
+        Task CreateAsync(string name, decimal price, Guid productListId);
         Task UpdateAsync(Guid id, string name, decimal price);
         Task DeleteAsync(Guid id);
     }
